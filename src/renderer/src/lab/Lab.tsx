@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef, useState, type DragEvent, type ReactNode } from 'react'
+import { useEffect, useMemo, useRef, useState, type DragEvent } from 'react'
 import {
   Barcode,
   Binary,
@@ -11,6 +11,7 @@ import {
   MessageSquareWarning,
   TextSearch,
   Check,
+  ChevronRight,
   Copy,
   Dices,
   Download,
@@ -21,16 +22,19 @@ import {
   Globe,
   ImageUp,
   KeyRound,
+  LayoutGrid,
   Link2,
   Loader2,
   Lock,
   LockOpen,
   QrCode,
   ScanSearch,
+  Search,
   Server,
   ShieldCheck,
   ShieldX,
-  Wifi
+  Wifi,
+  type LucideIcon
 } from 'lucide-react'
 import type { LinkReport, Settings, SiteAudit } from '@shared/types'
 import { parseQrPayload } from '@shared/qrpayload'
@@ -61,49 +65,113 @@ type ToolId =
   | 'clean'
   | 'file'
 
-const GROUPS: { id: string; tools: { id: ToolId; icon: ReactNode }[] }[] = [
+type GroupId = 'web' | 'scams' | 'files' | 'secrets'
+
+const GROUPS: { id: GroupId; tools: { id: ToolId; icon: LucideIcon }[] }[] = [
   {
     id: 'web',
     tools: [
-      { id: 'link', icon: <ScanSearch size={17} /> },
-      { id: 'audit', icon: <ShieldCheck size={17} /> },
-      { id: 'clean', icon: <Eraser size={17} /> },
-      { id: 'dns', icon: <Server size={17} /> }
+      { id: 'link', icon: ScanSearch },
+      { id: 'audit', icon: ShieldCheck },
+      { id: 'clean', icon: Eraser },
+      { id: 'dns', icon: Server }
     ]
   },
   {
     id: 'scams',
     tools: [
-      { id: 'scam', icon: <MessageSquareWarning size={17} /> },
-      { id: 'mail', icon: <Mail size={17} /> },
-      { id: 'boleto', icon: <Barcode size={17} /> },
-      { id: 'doc', icon: <IdCard size={17} /> }
+      { id: 'scam', icon: MessageSquareWarning },
+      { id: 'mail', icon: Mail },
+      { id: 'boleto', icon: Barcode },
+      { id: 'doc', icon: IdCard }
     ]
   },
   {
     id: 'files',
     tools: [
-      { id: 'file', icon: <FileWarning size={17} /> },
-      { id: 'photo', icon: <MapPinOff size={17} /> },
-      { id: 'hash', icon: <FileSearch size={17} /> },
-      { id: 'hidden', icon: <TextSearch size={17} /> }
+      { id: 'file', icon: FileWarning },
+      { id: 'photo', icon: MapPinOff },
+      { id: 'hash', icon: FileSearch },
+      { id: 'hidden', icon: TextSearch }
     ]
   },
   {
     id: 'secrets',
     tools: [
-      { id: 'password', icon: <KeyRound size={17} /> },
-      { id: 'vault', icon: <LockKeyhole size={17} /> },
-      { id: 'token', icon: <Dices size={17} /> },
-      { id: 'decode', icon: <Binary size={17} /> },
-      { id: 'qrgen', icon: <QrCode size={17} /> }
+      { id: 'password', icon: KeyRound },
+      { id: 'vault', icon: LockKeyhole },
+      { id: 'token', icon: Dices },
+      { id: 'decode', icon: Binary },
+      { id: 'qrgen', icon: QrCode }
     ]
   }
 ]
 
+const ALL_TOOLS = GROUPS.flatMap((g) => g.tools.map((x) => ({ ...x, group: g.id })))
+const LAST_TOOL = 'halyard-lab-tool'
+
+function savedTool(): ToolId | 'home' {
+  try {
+    const id = localStorage.getItem(LAST_TOOL)
+    return ALL_TOOLS.some((x) => x.id === id) ? (id as ToolId) : 'home'
+  } catch {
+    return 'home'
+  }
+}
+
+/** Matches without caring about accents or case ("seguranca" finds "segurança"). */
+function fold(s: string): string {
+  return s.normalize('NFD').replace(/\p{Diacritic}/gu, '').toLowerCase()
+}
+
+function ToolIcon({ group, icon: Icon, size = 17 }: { group: GroupId; icon: LucideIcon; size?: number }) {
+  return (
+    <span className="lab-ticon" data-group={group}>
+      <Icon size={size} />
+    </span>
+  )
+}
+
+function Home({ open }: { open: (id: ToolId) => void }) {
+  return (
+    <section className="lab-tool lab-home">
+      <header className="lab-hero">
+        <span className="lab-hero-logo">
+          <FlaskConical size={26} />
+        </span>
+        <div>
+          <h1>{t('lab.home.title')}</h1>
+          <p>{t('lab.home.intro')}</p>
+        </div>
+      </header>
+      {GROUPS.map((g) => (
+        <div key={g.id} className="lab-home-group" data-group={g.id}>
+          <h2>{t(`lab.group.${g.id}` as I18nKey)}</h2>
+          <div className="lab-home-grid">
+            {g.tools.map((x) => (
+              <button key={x.id} type="button" className="lab-home-card" onClick={() => open(x.id)}>
+                <ToolIcon group={g.id} icon={x.icon} size={18} />
+                <strong>{t(`lab.tool.${x.id}` as I18nKey)}</strong>
+                <span>{t(`lab.hint.${x.id}` as I18nKey)}</span>
+              </button>
+            ))}
+          </div>
+        </div>
+      ))}
+      <p className="lab-home-note">
+        <ShieldCheck size={14} />
+        <span>{t('lab.ethics')}</span>
+      </p>
+    </section>
+  )
+}
+
 export function Lab() {
   const [settings, setSettings] = useState<Settings | null>(null)
-  const [tool, setTool] = useState<ToolId>('link')
+  const [tool, setTool] = useState<ToolId | 'home'>(savedTool)
+  const [query, setQuery] = useState('')
+  const search = useRef<HTMLInputElement>(null)
+  const main = useRef<HTMLElement>(null)
 
   setLang(settings?.language)
 
@@ -118,61 +186,127 @@ export function Lab() {
     document.documentElement.lang = settings?.language ?? 'en'
   }, [settings?.language])
 
+  // Ctrl+K (or "/" outside a text field) jumps to the tool search
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      const typing = e.target instanceof HTMLInputElement || e.target instanceof HTMLTextAreaElement
+      if ((e.key === 'k' && (e.ctrlKey || e.metaKey)) || (e.key === '/' && !typing)) {
+        e.preventDefault()
+        search.current?.focus()
+        search.current?.select()
+      }
+    }
+    window.addEventListener('keydown', onKey)
+    return () => window.removeEventListener('keydown', onKey)
+  }, [])
+
+  const open = (id: ToolId | 'home') => {
+    setTool(id)
+    setQuery('')
+    main.current?.scrollTo({ top: 0 })
+    try {
+      localStorage.setItem(LAST_TOOL, id)
+    } catch {
+      // storage can be unavailable; the Lab just opens on the home screen next time
+    }
+  }
+
+  const q = fold(query.trim())
+  const groups = q
+    ? GROUPS.map((g) => ({ ...g, tools: g.tools.filter((x) => fold(`${t(`lab.tool.${x.id}` as I18nKey)} ${t(`lab.hint.${x.id}` as I18nKey)}`).includes(q)) })).filter(
+        (g) => g.tools.length
+      )
+    : GROUPS
+  const current = ALL_TOOLS.find((x) => x.id === tool)
+
   return (
     <div className="lab">
       <aside className="lab-side">
-        <div className="lab-brand">
+        <button type="button" className="lab-brand" onClick={() => open('home')}>
           <span className="lab-logo">
             <FlaskConical size={18} />
           </span>
           <span>
-            <strong>{BRAND} Lab</strong>
+            <strong>Halyard Lab</strong>
             <small>{t('lab.tagline')}</small>
           </span>
-        </div>
+        </button>
+        <label className="lab-find">
+          <Search size={15} />
+          <input
+            ref={search}
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter' && groups[0]) open(groups[0].tools[0].id)
+              if (e.key === 'Escape') setQuery('')
+            }}
+            placeholder={t('lab.find')}
+            aria-label={t('lab.find')}
+            spellCheck={false}
+          />
+          <kbd>Ctrl K</kbd>
+        </label>
         <nav className="lab-nav" aria-label={t('lab.tools')}>
-          {GROUPS.map((g) => (
-            <div key={g.id} className="lab-nav-group">
+          {!q && (
+            <button type="button" className={cls('lab-nav-item', tool === 'home' && 'is-on')} onClick={() => open('home')}>
+              <LayoutGrid size={17} />
+              <span>{t('lab.home')}</span>
+            </button>
+          )}
+          {groups.map((g) => (
+            <div key={g.id} className="lab-nav-group" data-group={g.id}>
               <span className="lab-nav-label">{t(`lab.group.${g.id}` as I18nKey)}</span>
               {g.tools.map((x) => (
-                <button key={x.id} type="button" className={cls('lab-nav-item', tool === x.id && 'is-on')} onClick={() => setTool(x.id)}>
-                  {x.icon}
+                <button key={x.id} type="button" className={cls('lab-nav-item', tool === x.id && 'is-on')} onClick={() => open(x.id)}>
+                  <x.icon size={17} />
                   <span>{t(`lab.tool.${x.id}` as I18nKey)}</span>
                 </button>
               ))}
             </div>
           ))}
+          {!groups.length && <p className="lab-nav-empty">{t('lab.noMatch')}</p>}
         </nav>
-        <p className="lab-ethics">
-          <ShieldCheck size={14} />
-          <span>{t('lab.ethics')}</span>
-        </p>
       </aside>
-      <main className="lab-main">
+      <main className="lab-main" ref={main}>
         <div className="lab-titlebar" />
-        <section className="lab-tool" key={tool}>
-          <header className="lab-tool-head">
-            <h1>{t(`lab.tool.${tool}` as I18nKey)}</h1>
-            <p>{t(`lab.hint.${tool}` as I18nKey)}</p>
-          </header>
-          {tool === 'link' && <LinkTool />}
-          {tool === 'audit' && <AuditTool />}
-          {tool === 'password' && <PasswordTool />}
-          {tool === 'hash' && <HashTool />}
-          {tool === 'decode' && <DecodeTool />}
-          {tool === 'dns' && <DnsTool secureDns={settings?.secureDns ?? 'cloudflare'} />}
-          {tool === 'qrgen' && <QrGenTool />}
-          {tool === 'scam' && <ScamTool />}
-          {tool === 'boleto' && <BoletoTool />}
-          {tool === 'doc' && <DocTool />}
-          {tool === 'photo' && <PhotoTool />}
-          {tool === 'hidden' && <HiddenTool />}
-          {tool === 'mail' && <MailTool />}
-          {tool === 'vault' && <VaultTool />}
-          {tool === 'token' && <TokenTool />}
-          {tool === 'clean' && <CleanTool />}
-          {tool === 'file' && <FileTool />}
-        </section>
+        {tool === 'home' || !current ? (
+          <Home open={open} />
+        ) : (
+          <section className="lab-tool" key={tool} data-group={current.group}>
+            <header className="lab-tool-head">
+              <ToolIcon group={current.group} icon={current.icon} size={22} />
+              <div>
+                <span className="lab-crumb">
+                  <button type="button" onClick={() => open('home')}>
+                    {t('lab.home')}
+                  </button>
+                  <ChevronRight size={12} />
+                  {t(`lab.group.${current.group}` as I18nKey)}
+                </span>
+                <h1>{t(`lab.tool.${tool}` as I18nKey)}</h1>
+                <p>{t(`lab.hint.${tool}` as I18nKey)}</p>
+              </div>
+            </header>
+            {tool === 'link' && <LinkTool />}
+            {tool === 'audit' && <AuditTool />}
+            {tool === 'password' && <PasswordTool />}
+            {tool === 'hash' && <HashTool />}
+            {tool === 'decode' && <DecodeTool />}
+            {tool === 'dns' && <DnsTool secureDns={settings?.secureDns ?? 'cloudflare'} />}
+            {tool === 'qrgen' && <QrGenTool />}
+            {tool === 'scam' && <ScamTool />}
+            {tool === 'boleto' && <BoletoTool />}
+            {tool === 'doc' && <DocTool />}
+            {tool === 'photo' && <PhotoTool />}
+            {tool === 'hidden' && <HiddenTool />}
+            {tool === 'mail' && <MailTool />}
+            {tool === 'vault' && <VaultTool />}
+            {tool === 'token' && <TokenTool />}
+            {tool === 'clean' && <CleanTool />}
+            {tool === 'file' && <FileTool />}
+          </section>
+        )}
       </main>
     </div>
   )

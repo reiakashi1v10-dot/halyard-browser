@@ -155,19 +155,27 @@ export function ScamTool() {
           {report.links.length > 0 && (
             <>
               <h2>{t('lab.scam.links')}</h2>
-              <ul className="lab-hosts">
+              <ul className="lab-tokens is-links">
                 {report.links.map((l) => {
                   const r = links[l]
                   return (
                     <li key={l}>
-                      <Mono>{l}</Mono>{' '}
-                      <small>
-                        {r === 'busy' || !r
-                          ? t('lab.scam.linkChecking')
-                          : r === 'error'
-                            ? '—'
-                            : `${t(`qr.level.${r.level}` as I18nKey)}${r.finalHost && r.finalHost !== r.host ? ` → ${r.finalHost}` : ''}`}
-                      </small>
+                      <span>
+                        <Mono>{l}</Mono>
+                        <small className="lab-muted lab-small">
+                          {r === 'busy' || !r
+                            ? t('lab.scam.linkChecking')
+                            : r === 'error'
+                              ? '—'
+                              : [
+                                  // "safe" only means no blocklist hit: inside a scam warning, say exactly that
+                                  r.level === 'safe' ? t('lab.scam.linkClean') : t(`qr.level.${r.level}` as I18nKey),
+                                  r.finalHost && r.finalHost !== r.host ? t('lab.scam.linkGoes', { host: r.finalHost }) : ''
+                                ]
+                                  .filter(Boolean)
+                                  .join(' · ')}
+                        </small>
+                      </span>
                     </li>
                   )
                 })}

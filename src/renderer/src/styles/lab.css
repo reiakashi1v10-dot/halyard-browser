@@ -109,8 +109,18 @@ textarea {
   display: flex;
   align-items: center;
   gap: 10px;
-  padding: 6px 6px 0;
-  -webkit-app-region: drag;
+  padding: 6px;
+  border: 0;
+  border-radius: 12px;
+  background: none;
+  color: inherit;
+  text-align: left;
+  cursor: default;
+  -webkit-app-region: no-drag;
+}
+
+.lab-brand:hover {
+  background: rgba(110, 255, 170, 0.05);
 }
 
 .lab-brand strong {
@@ -248,7 +258,38 @@ textarea {
 }
 
 .lab-tool-head {
-  margin-bottom: 18px;
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  margin-bottom: 20px;
+}
+
+.lab-tool-head .lab-ticon {
+  width: 46px;
+  height: 46px;
+  border-radius: 13px;
+  margin-top: 2px;
+}
+
+.lab-crumb {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  margin-bottom: 2px;
+  color: var(--faint);
+  font-size: 12px;
+}
+
+.lab-crumb button {
+  padding: 0;
+  border: 0;
+  background: none;
+  color: inherit;
+  cursor: default;
+}
+
+.lab-crumb button:hover {
+  color: var(--accent);
 }
 
 .lab-tool-head h1 {
@@ -257,12 +298,6 @@ textarea {
   letter-spacing: -0.01em;
 }
 
-.lab-tool-head h1::before {
-  content: '> ';
-  color: var(--accent);
-  font-family: var(--mono);
-  font-weight: 500;
-}
 
 .lab-tool-head p {
   margin: 0;
@@ -291,6 +326,7 @@ textarea {
     grid-template-columns: 64px 1fr;
   }
   .lab-brand span:last-child,
+  .lab-find,
   .lab-nav-item span,
   .lab-nav-label,
   .lab-ethics span {
@@ -1095,4 +1131,248 @@ select.lab-input {
 
 .lab-entries li.is-risky .lab-mono {
   color: var(--danger);
+}
+
+/* ------------------------------------------------------------ groups, search, home */
+
+[data-group='web'] {
+  --g: #3df08b;
+}
+[data-group='scams'] {
+  --g: #ffb454;
+}
+[data-group='files'] {
+  --g: #63b9ff;
+}
+[data-group='secrets'] {
+  --g: #b794ff;
+}
+
+.lab-ticon {
+  display: grid;
+  flex: none;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 10px;
+  background: color-mix(in srgb, var(--g, var(--accent)) 14%, transparent);
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--g, var(--accent)) 30%, transparent);
+  color: var(--g, var(--accent));
+}
+
+.lab-nav-group .lab-nav-item svg {
+  flex: none;
+  color: color-mix(in srgb, var(--g) 70%, var(--muted));
+}
+
+.lab-nav-group .lab-nav-item.is-on {
+  background: color-mix(in srgb, var(--g) 13%, transparent);
+  color: var(--ink);
+  box-shadow: inset 2px 0 0 var(--g);
+}
+
+.lab-nav-group .lab-nav-item.is-on svg {
+  color: var(--g);
+}
+
+.lab-nav-label {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+
+.lab-nav-label::before {
+  content: '';
+  width: 6px;
+  height: 6px;
+  border-radius: 2px;
+  background: var(--g);
+  opacity: 0.8;
+}
+
+.lab-nav-empty {
+  margin: 4px 10px;
+  color: var(--faint);
+  font-size: 12.5px;
+}
+
+.lab-find {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  height: 36px;
+  margin: 0 2px;
+  padding: 0 8px 0 10px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: rgba(0, 0, 0, 0.22);
+  color: var(--faint);
+  transition: border-color 120ms, box-shadow 120ms;
+}
+
+.lab-find:focus-within {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(61, 240, 139, 0.12);
+  color: var(--accent);
+}
+
+.lab-find input {
+  flex: 1;
+  min-width: 0;
+  border: 0;
+  background: none;
+  color: var(--ink);
+  outline: none;
+  font-size: 13px;
+}
+
+.lab-find input::placeholder {
+  color: var(--faint);
+}
+
+.lab-find kbd {
+  padding: 1px 5px;
+  border: 1px solid var(--line);
+  border-radius: 5px;
+  color: var(--faint);
+  font: 10.5px/1.5 var(--mono);
+  white-space: nowrap;
+}
+
+.lab-find:focus-within kbd {
+  display: none;
+}
+
+.lab-hero {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  margin: 6px 0 30px;
+  padding: 26px 26px;
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  background:
+    radial-gradient(80% 140% at 100% 0%, rgba(99, 185, 255, 0.1), transparent 60%),
+    radial-gradient(70% 120% at 0% 100%, rgba(61, 240, 139, 0.12), transparent 60%),
+    var(--card);
+}
+
+.lab-hero-logo {
+  display: grid;
+  flex: none;
+  place-items: center;
+  width: 58px;
+  height: 58px;
+  border-radius: 16px;
+  background: var(--accent);
+  color: var(--accent-ink);
+  box-shadow: 0 0 40px -8px rgba(61, 240, 139, 0.7);
+}
+
+.lab-hero h1 {
+  margin: 0 0 6px;
+  font: 700 28px/1.1 var(--display);
+  letter-spacing: -0.015em;
+}
+
+.lab-hero p {
+  margin: 0;
+  max-width: 600px;
+  color: var(--muted);
+}
+
+.lab-home-group {
+  margin-bottom: 26px;
+}
+
+.lab-home-group h2 {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0 0 10px;
+  color: var(--muted);
+  font: 600 12px/1 var(--font);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.lab-home-group h2::before {
+  content: '';
+  width: 8px;
+  height: 8px;
+  border-radius: 3px;
+  background: var(--g);
+}
+
+.lab-home-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 10px;
+}
+
+.lab-home-card {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  grid-template-rows: auto 1fr;
+  gap: 4px 12px;
+  padding: 14px;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: var(--card);
+  color: inherit;
+  text-align: left;
+  cursor: default;
+  transition: border-color 140ms, transform 140ms var(--ease), background 140ms;
+}
+
+.lab-home-card .lab-ticon {
+  grid-row: span 2;
+}
+
+.lab-home-card strong {
+  align-self: center;
+  font: 650 14.5px/1.25 var(--display);
+}
+
+.lab-home-card span:last-child {
+  display: -webkit-box;
+  overflow: hidden;
+  color: var(--muted);
+  font-size: 12.5px;
+  line-height: 1.45;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+}
+
+.lab-home-card:hover {
+  border-color: color-mix(in srgb, var(--g) 50%, transparent);
+  background: color-mix(in srgb, var(--g) 5%, var(--card));
+  transform: translateY(-2px);
+}
+
+.lab-home-card:focus-visible {
+  outline: 2px solid var(--g);
+  outline-offset: 2px;
+}
+
+.lab-home-note {
+  display: flex;
+  gap: 8px;
+  margin: 8px 0 0;
+  color: var(--faint);
+  font-size: 12px;
+}
+
+.lab-home-note svg {
+  flex: none;
+  margin-top: 2px;
+  color: var(--accent);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .lab-tool,
+  .lab-home-card {
+    animation: none;
+    transition: none;
+  }
 }
