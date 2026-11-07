@@ -1,0 +1,11 @@
+node_modules
+out
+dist
+*.log
+.env
+.env.*
+!.env.example
+.build-cache
+
+# local tooling (preview config with paths of this PC, agent skills)
+.claude/

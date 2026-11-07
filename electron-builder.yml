@@ -1,0 +1,62 @@
+appId: app.halyard.browser
+productName: Halyard Browser
+copyright: Copyright © 2026 Halyard
+directories:
+  output: dist
+  buildResources: resources
+files:
+  - out/**
+  - package.json
+  # local AI engine: only the Windows x64 builds for the processor and for Vulkan graphics
+  # (CUDA builds are ~550 MB and Vulkan already covers NVIDIA, AMD and Intel cards)
+  - "!node_modules/@node-llama-cpp/win-x64-cuda/**"
+  - "!node_modules/@node-llama-cpp/win-x64-cuda-ext/**"
+  - "!node_modules/@node-llama-cpp/win-arm64/**"
+  # llama.cpp source code, only needed to compile it, which the app never does
+  - "!node_modules/node-llama-cpp/llama/gitRelease.bundle"
+asar: true
+# license texts and the legal documents, next to Halyard Browser.exe
+extraFiles:
+  - from: legal/THIRD_PARTY_NOTICES.txt
+    to: THIRD_PARTY_NOTICES.txt
+  - from: LICENSE
+    to: LICENSE.txt
+# native code must live outside the asar archive to be loaded
+asarUnpack:
+  - node_modules/node-llama-cpp/**
+  - node_modules/@node-llama-cpp/**
+# use the Electron already in node_modules instead of downloading another copy
+electronDist: node_modules/electron/dist
+npmRebuild: false
+# Updates: GitHub Releases of the repository named in package.json ("repository").
+# `npm run release` (with GH_TOKEN set) builds and uploads setup.exe, latest.yml and the blockmap;
+# installed copies pick the new version up on their own.
+publish:
+  provider: github
+  releaseType: release
+# Hardening of Halyard's own executable (Electron fuses, flipped inside the .exe at build time):
+# malware can't reuse Halyard.exe as a signed Node.js runner, inject code through NODE_OPTIONS
+# or --inspect, or swap the app code inside app.asar; cookies are encrypted on disk.
+electronFuses:
+  runAsNode: false
+  enableNodeOptionsEnvironmentVariable: false
+  enableNodeCliInspectArguments: false
+  enableEmbeddedAsarIntegrityValidation: true
+  onlyLoadAppFromAsar: true
+  enableCookieEncryption: true
+win:
+  icon: resources/icon.ico
+  target:
+    - target: portable
+      arch: [x64]
+    - target: nsis
+      arch: [x64]
+portable:
+  artifactName: Halyard-Browser-${version}-portable.exe
+nsis:
+  artifactName: Halyard-Browser-${version}-setup.exe
+  oneClick: false
+  perMachine: false
+  allowToChangeInstallationDirectory: true
+  createDesktopShortcut: true
+  shortcutName: Halyard Browser

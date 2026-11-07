@@ -1,0 +1,1064 @@
+[
+ {
+  "name": "Chromium",
+  "version": "",
+  "license": "BSD-3-Clause and others",
+  "url": "https://www.chromium.org/",
+  "note": "Full list: LICENSES.chromium.html next to Halyard Browser.exe"
+ },
+ {
+  "name": "Electron",
+  "version": "",
+  "license": "MIT",
+  "url": "https://github.com/electron/electron",
+  "note": "LICENSE.electron.txt next to Halyard Browser.exe"
+ },
+ {
+  "name": "EasyList, EasyPrivacy, uBlock Origin filters (via Ghostery)",
+  "version": "",
+  "license": "GPL-3.0 / CC BY-SA 3.0 (per list)",
+  "url": "https://github.com/ghostery/adblocker",
+  "note": "Filter lists downloaded at run time"
+ },
+ {
+  "name": "malware-filter (URLhaus, phishing-filter)",
+  "version": "",
+  "license": "See source",
+  "url": "https://gitlab.com/malware-filter",
+  "note": "Lists of dangerous sites downloaded at run time"
+ },
+ {
+  "name": "Have I Been Pwned — Pwned Passwords",
+  "version": "",
+  "license": "CC BY 4.0",
+  "url": "https://haveibeenpwned.com/Passwords",
+  "note": "Leaked-password check (k-anonymity)"
+ },
+ {
+  "name": "Qwen3-4B-Instruct-2507 (GGUF by Unsloth)",
+  "version": "",
+  "license": "Apache-2.0",
+  "url": "https://huggingface.co/Qwen/Qwen3-4B-Instruct-2507",
+  "note": "Local AI model, downloaded only if the user asks"
+ },
+ {
+  "name": "@electron-internal/extract-zip",
+  "version": "1.0.8",
+  "license": "MIT",
+  "url": "https://github.com/electron/extract-zip"
+ },
+ {
+  "name": "@electron/get",
+  "version": "5.1.0",
+  "license": "MIT",
+  "url": "https://github.com/electron/get"
+ },
+ {
+  "name": "@fontsource-variable/bricolage-grotesque",
+  "version": "5.3.0",
+  "license": "OFL-1.1",
+  "url": "https://github.com/fontsource/font-files"
+ },
+ {
+  "name": "@fontsource-variable/onest",
+  "version": "5.3.1",
+  "license": "OFL-1.1",
+  "url": "https://github.com/fontsource/font-files"
+ },
+ {
+  "name": "@ghostery/adblocker",
+  "version": "2.20.3",
+  "license": "MPL-2.0",
+  "url": "ssh://git@github.com/ghostery/adblocker"
+ },
+ {
+  "name": "@ghostery/adblocker-content",
+  "version": "2.20.3",
+  "license": "MPL-2.0",
+  "url": "ssh://git@github.com/ghostery/adblocker"
+ },
+ {
+  "name": "@ghostery/adblocker-electron",
+  "version": "2.20.3",
+  "license": "MPL-2.0",
+  "url": "ssh://git@github.com/ghostery/adblocker"
+ },
+ {
+  "name": "@ghostery/adblocker-electron-preload",
+  "version": "2.20.3",
+  "license": "MPL-2.0",
+  "url": "ssh://git@github.com/ghostery/adblocker"
+ },
+ {
+  "name": "@ghostery/adblocker-extended-selectors",
+  "version": "2.20.3",
+  "license": "MPL-2.0",
+  "url": "ssh://git@github.com/ghostery/adblocker"
+ },
+ {
+  "name": "@ghostery/url-parser",
+  "version": "1.3.1",
+  "license": "MPL-2.0",
+  "url": "https://github.com/ghostery/url-parser"
+ },
+ {
+  "name": "@huggingface/jinja",
+  "version": "0.5.11",
+  "license": "MIT",
+  "url": "https://github.com/huggingface/huggingface.js"
+ },
+ {
+  "name": "@isaacs/fs-minipass",
+  "version": "4.0.1",
+  "license": "ISC",
+  "url": "https://github.com/npm/fs-minipass"
+ },
+ {
+  "name": "@kwsites/file-exists",
+  "version": "1.1.1",
+  "license": "MIT",
+  "url": "git@github.com:kwsites/file-exists"
+ },
+ {
+  "name": "@kwsites/promise-deferred",
+  "version": "1.1.1",
+  "license": "MIT",
+  "url": "https://github.com/kwsites/promise-deferred"
+ },
+ {
+  "name": "@node-llama-cpp/win-arm64",
+  "version": "3.22.2",
+  "license": "MIT",
+  "url": "https://github.com/withcatai/node-llama-cpp"
+ },
+ {
+  "name": "@node-llama-cpp/win-x64",
+  "version": "3.22.2",
+  "license": "MIT",
+  "url": "https://github.com/withcatai/node-llama-cpp"
+ },
+ {
+  "name": "@node-llama-cpp/win-x64-cuda",
+  "version": "3.22.2",
+  "license": "MIT",
+  "url": "https://github.com/withcatai/node-llama-cpp"
+ },
+ {
+  "name": "@node-llama-cpp/win-x64-cuda-ext",
+  "version": "3.22.2",
+  "license": "MIT",
+  "url": "https://github.com/withcatai/node-llama-cpp"
+ },
+ {
+  "name": "@node-llama-cpp/win-x64-vulkan",
+  "version": "3.22.2",
+  "license": "MIT",
+  "url": "https://github.com/withcatai/node-llama-cpp"
+ },
+ {
+  "name": "@reflink/reflink",
+  "version": "0.1.19",
+  "license": "MIT",
+  "url": "https://github.com/pnpm/reflink"
+ },
+ {
+  "name": "@reflink/reflink-win32-x64-msvc",
+  "version": "0.1.19",
+  "license": "MIT",
+  "url": "https://github.com/pnpm/reflink"
+ },
+ {
+  "name": "@remusao/guess-url-type",
+  "version": "2.1.0",
+  "license": "MPL-2.0",
+  "url": "https://github.com/remusao/mono"
+ },
+ {
+  "name": "@remusao/small",
+  "version": "2.1.0",
+  "license": "MPL-2.0",
+  "url": "https://github.com/remusao/mono"
+ },
+ {
+  "name": "@remusao/smaz",
+  "version": "2.2.0",
+  "license": "MPL-2.0",
+  "url": "https://github.com/remusao/mono"
+ },
+ {
+  "name": "@remusao/smaz-compress",
+  "version": "2.2.0",
+  "license": "MPL-2.0",
+  "url": "https://github.com/remusao/mono"
+ },
+ {
+  "name": "@remusao/smaz-decompress",
+  "version": "2.2.0",
+  "license": "MPL-2.0",
+  "url": "https://github.com/remusao/mono"
+ },
+ {
+  "name": "@remusao/trie",
+  "version": "2.1.0",
+  "license": "MPL-2.0",
+  "url": "https://github.com/remusao/mono"
+ },
+ {
+  "name": "@simple-git/args-pathspec",
+  "version": "1.0.4",
+  "license": "MIT",
+  "url": "https://github.com/steveukx/git-js"
+ },
+ {
+  "name": "@simple-git/argv-parser",
+  "version": "2.0.1",
+  "license": "MIT",
+  "url": "https://github.com/steveukx/git-js"
+ },
+ {
+  "name": "@supabase/auth-js",
+  "version": "2.118.0",
+  "license": "MIT",
+  "url": "https://github.com/supabase/supabase-js"
+ },
+ {
+  "name": "@supabase/functions-js",
+  "version": "2.118.0",
+  "license": "MIT",
+  "url": "https://github.com/supabase/supabase-js"
+ },
+ {
+  "name": "@supabase/phoenix",
+  "version": "0.4.5",
+  "license": "MIT",
+  "url": "https://github.com/supabase/phoenix"
+ },
+ {
+  "name": "@supabase/postgrest-js",
+  "version": "2.118.0",
+  "license": "MIT",
+  "url": "https://github.com/supabase/supabase-js"
+ },
+ {
+  "name": "@supabase/realtime-js",
+  "version": "2.118.0",
+  "license": "MIT",
+  "url": "https://github.com/supabase/supabase-js"
+ },
+ {
+  "name": "@supabase/storage-js",
+  "version": "2.118.0",
+  "license": "MIT",
+  "url": "https://github.com/supabase/supabase-js"
+ },
+ {
+  "name": "@supabase/supabase-js",
+  "version": "2.118.0",
+  "license": "MIT",
+  "url": "https://github.com/supabase/supabase-js"
+ },
+ {
+  "name": "@tinyhttp/content-disposition",
+  "version": "2.2.4",
+  "license": "MIT",
+  "url": "https://github.com/tinyhttp/tinyhttp"
+ },
+ {
+  "name": "@types/node",
+  "version": "24.19.2",
+  "license": "MIT",
+  "url": "https://github.com/DefinitelyTyped/DefinitelyTyped"
+ },
+ {
+  "name": "@typescript/typescript-win32-x64",
+  "version": "7.0.2",
+  "license": "Apache-2.0",
+  "url": "https://github.com/microsoft/TypeScript"
+ },
+ {
+  "name": "ansi-escapes",
+  "version": "6.2.1",
+  "license": "MIT",
+  "url": "sindresorhus/ansi-escapes"
+ },
+ {
+  "name": "ansi-regex",
+  "version": "6.5.0",
+  "license": "MIT",
+  "url": "chalk/ansi-regex"
+ },
+ {
+  "name": "ansi-regex",
+  "version": "5.0.1",
+  "license": "MIT",
+  "url": "chalk/ansi-regex"
+ },
+ {
+  "name": "ansi-styles",
+  "version": "6.2.3",
+  "license": "MIT",
+  "url": "chalk/ansi-styles"
+ },
+ {
+  "name": "ansi-styles",
+  "version": "4.3.0",
+  "license": "MIT",
+  "url": "chalk/ansi-styles"
+ },
+ {
+  "name": "argparse",
+  "version": "2.0.1",
+  "license": "Python-2.0",
+  "url": "nodeca/argparse"
+ },
+ {
+  "name": "async-retry",
+  "version": "1.3.3",
+  "license": "MIT",
+  "url": "vercel/async-retry"
+ },
+ {
+  "name": "builder-util-runtime",
+  "version": "9.7.0",
+  "license": "MIT",
+  "url": "https://github.com/electron-userland/electron-builder"
+ },
+ {
+  "name": "bytes",
+  "version": "3.1.2",
+  "license": "MIT",
+  "url": "visionmedia/bytes.js"
+ },
+ {
+  "name": "chalk",
+  "version": "5.6.2",
+  "license": "MIT",
+  "url": "chalk/chalk"
+ },
+ {
+  "name": "chmodrp",
+  "version": "1.0.2",
+  "license": "MIT",
+  "url": "https://github.com/leonzalion/chmodrp"
+ },
+ {
+  "name": "chownr",
+  "version": "3.0.0",
+  "license": "BlueOak-1.0.0",
+  "url": "https://github.com/isaacs/chownr"
+ },
+ {
+  "name": "ci-info",
+  "version": "4.4.0",
+  "license": "MIT",
+  "url": "https://github.com/watson/ci-info"
+ },
+ {
+  "name": "cli-cursor",
+  "version": "5.0.0",
+  "license": "MIT",
+  "url": "sindresorhus/cli-cursor"
+ },
+ {
+  "name": "cli-spinners",
+  "version": "2.9.2",
+  "license": "MIT",
+  "url": "sindresorhus/cli-spinners"
+ },
+ {
+  "name": "cli-spinners",
+  "version": "3.4.0",
+  "license": "MIT",
+  "url": "sindresorhus/cli-spinners"
+ },
+ {
+  "name": "cliui",
+  "version": "8.0.1",
+  "license": "ISC",
+  "url": "yargs/cliui"
+ },
+ {
+  "name": "cmake-js",
+  "version": "8.0.0",
+  "license": "MIT",
+  "url": "https://github.com/cmake-js/cmake-js"
+ },
+ {
+  "name": "color-convert",
+  "version": "2.0.1",
+  "license": "MIT",
+  "url": "Qix-/color-convert"
+ },
+ {
+  "name": "color-name",
+  "version": "1.1.4",
+  "license": "MIT",
+  "url": "git@github.com:colorjs/color-name"
+ },
+ {
+  "name": "commander",
+  "version": "10.0.1",
+  "license": "MIT",
+  "url": "https://github.com/tj/commander.js"
+ },
+ {
+  "name": "cross-spawn",
+  "version": "7.0.6",
+  "license": "MIT",
+  "url": "git@github.com:moxystudio/node-cross-spawn"
+ },
+ {
+  "name": "debug",
+  "version": "4.4.3",
+  "license": "MIT",
+  "url": "https://github.com/debug-js/debug"
+ },
+ {
+  "name": "deep-extend",
+  "version": "0.6.0",
+  "license": "MIT",
+  "url": "https://github.com/unclechu/node-deep-extend"
+ },
+ {
+  "name": "electron",
+  "version": "45.2.2",
+  "license": "MIT",
+  "url": "https://github.com/electron/electron"
+ },
+ {
+  "name": "electron-updater",
+  "version": "6.8.11",
+  "license": "MIT",
+  "url": "https://github.com/electron-userland/electron-builder"
+ },
+ {
+  "name": "emoji-regex",
+  "version": "10.6.0",
+  "license": "MIT",
+  "url": "https://github.com/mathiasbynens/emoji-regex"
+ },
+ {
+  "name": "emoji-regex",
+  "version": "8.0.0",
+  "license": "MIT",
+  "url": "https://github.com/mathiasbynens/emoji-regex"
+ },
+ {
+  "name": "env-paths",
+  "version": "3.0.0",
+  "license": "MIT",
+  "url": "sindresorhus/env-paths"
+ },
+ {
+  "name": "env-var",
+  "version": "7.5.0",
+  "license": "MIT",
+  "url": "https://github.com/evanshortiss/env-var"
+ },
+ {
+  "name": "escalade",
+  "version": "3.2.0",
+  "license": "MIT",
+  "url": "lukeed/escalade"
+ },
+ {
+  "name": "eventemitter3",
+  "version": "5.0.4",
+  "license": "MIT",
+  "url": "https://github.com/primus/eventemitter3"
+ },
+ {
+  "name": "filename-reserved-regex",
+  "version": "3.0.0",
+  "license": "MIT",
+  "url": "sindresorhus/filename-reserved-regex"
+ },
+ {
+  "name": "filenamify",
+  "version": "6.0.0",
+  "license": "MIT",
+  "url": "sindresorhus/filenamify"
+ },
+ {
+  "name": "fs-extra",
+  "version": "10.1.0",
+  "license": "MIT",
+  "url": "https://github.com/jprichardson/node-fs-extra"
+ },
+ {
+  "name": "fs-extra",
+  "version": "11.4.1",
+  "license": "MIT",
+  "url": "https://github.com/jprichardson/node-fs-extra"
+ },
+ {
+  "name": "get-caller-file",
+  "version": "2.0.5",
+  "license": "ISC",
+  "url": "https://github.com/stefanpenner/get-caller-file"
+ },
+ {
+  "name": "get-east-asian-width",
+  "version": "1.7.0",
+  "license": "MIT",
+  "url": "sindresorhus/get-east-asian-width"
+ },
+ {
+  "name": "graceful-fs",
+  "version": "4.2.11",
+  "license": "ISC",
+  "url": "https://github.com/isaacs/node-graceful-fs"
+ },
+ {
+  "name": "iceberg-js",
+  "version": "0.8.1",
+  "license": "MIT",
+  "url": "https://github.com/supabase/iceberg-js"
+ },
+ {
+  "name": "ignore",
+  "version": "7.0.14",
+  "license": "MIT",
+  "url": "https://github.com/kaelzhang/node-ignore"
+ },
+ {
+  "name": "ini",
+  "version": "1.3.8",
+  "license": "ISC",
+  "url": "https://github.com/isaacs/ini"
+ },
+ {
+  "name": "ipull",
+  "version": "3.9.5",
+  "license": "MIT",
+  "url": "https://github.com/ido-pluto/ipull"
+ },
+ {
+  "name": "is-fullwidth-code-point",
+  "version": "5.1.0",
+  "license": "MIT",
+  "url": "sindresorhus/is-fullwidth-code-point"
+ },
+ {
+  "name": "is-fullwidth-code-point",
+  "version": "3.0.0",
+  "license": "MIT",
+  "url": "sindresorhus/is-fullwidth-code-point"
+ },
+ {
+  "name": "is-interactive",
+  "version": "2.0.0",
+  "license": "MIT",
+  "url": "sindresorhus/is-interactive"
+ },
+ {
+  "name": "is-unicode-supported",
+  "version": "2.1.0",
+  "license": "MIT",
+  "url": "sindresorhus/is-unicode-supported"
+ },
+ {
+  "name": "isexe",
+  "version": "4.0.0",
+  "license": "BlueOak-1.0.0",
+  "url": "https://github.com/isaacs/isexe"
+ },
+ {
+  "name": "isexe",
+  "version": "2.0.0",
+  "license": "ISC",
+  "url": "https://github.com/isaacs/isexe"
+ },
+ {
+  "name": "js-yaml",
+  "version": "4.3.2",
+  "license": "MIT",
+  "url": "nodeca/js-yaml"
+ },
+ {
+  "name": "jsonfile",
+  "version": "6.2.1",
+  "license": "MIT",
+  "url": "git@github.com:jprichardson/node-jsonfile"
+ },
+ {
+  "name": "jsqr",
+  "version": "1.4.0",
+  "license": "Apache-2.0",
+  "url": "https://github.com/cozmo/jsQR"
+ },
+ {
+  "name": "lazy-val",
+  "version": "1.0.5",
+  "license": "MIT",
+  "url": "develar/lazy-val"
+ },
+ {
+  "name": "lifecycle-utils",
+  "version": "4.5.2",
+  "license": "MIT",
+  "url": "https://github.com/giladgd/lifecycle-utils"
+ },
+ {
+  "name": "lifecycle-utils",
+  "version": "2.1.0",
+  "license": "MIT",
+  "url": "https://github.com/giladgd/lifecycle-utils"
+ },
+ {
+  "name": "lodash.debounce",
+  "version": "4.0.8",
+  "license": "MIT",
+  "url": "lodash/lodash"
+ },
+ {
+  "name": "lodash.escaperegexp",
+  "version": "4.1.2",
+  "license": "MIT",
+  "url": "lodash/lodash"
+ },
+ {
+  "name": "lodash.isequal",
+  "version": "4.5.0",
+  "license": "MIT",
+  "url": "lodash/lodash"
+ },
+ {
+  "name": "log-symbols",
+  "version": "7.0.1",
+  "license": "MIT",
+  "url": "sindresorhus/log-symbols"
+ },
+ {
+  "name": "lowdb",
+  "version": "7.0.1",
+  "license": "MIT",
+  "url": "https://github.com/typicode/lowdb"
+ },
+ {
+  "name": "lucide-react",
+  "version": "1.67.0",
+  "license": "ISC",
+  "url": "https://github.com/lucide-icons/lucide"
+ },
+ {
+  "name": "mimic-function",
+  "version": "5.0.1",
+  "license": "MIT",
+  "url": "sindresorhus/mimic-function"
+ },
+ {
+  "name": "minimist",
+  "version": "1.2.8",
+  "license": "MIT",
+  "url": "https://github.com/minimistjs/minimist"
+ },
+ {
+  "name": "minipass",
+  "version": "7.1.3",
+  "license": "BlueOak-1.0.0",
+  "url": "https://github.com/isaacs/minipass"
+ },
+ {
+  "name": "minizlib",
+  "version": "3.1.0",
+  "license": "MIT",
+  "url": "https://github.com/isaacs/minizlib"
+ },
+ {
+  "name": "ms",
+  "version": "2.1.3",
+  "license": "MIT",
+  "url": "vercel/ms"
+ },
+ {
+  "name": "nanoid",
+  "version": "5.1.16",
+  "license": "MIT",
+  "url": "ai/nanoid"
+ },
+ {
+  "name": "node-addon-api",
+  "version": "8.9.2",
+  "license": "MIT",
+  "url": "https://github.com/nodejs/node-addon-api"
+ },
+ {
+  "name": "node-api-headers",
+  "version": "1.9.0",
+  "license": "MIT",
+  "url": "https://github.com/nodejs/node-api-headers"
+ },
+ {
+  "name": "node-llama-cpp",
+  "version": "3.22.2",
+  "license": "MIT",
+  "url": "https://github.com/withcatai/node-llama-cpp"
+ },
+ {
+  "name": "onetime",
+  "version": "7.0.0",
+  "license": "MIT",
+  "url": "sindresorhus/onetime"
+ },
+ {
+  "name": "ora",
+  "version": "9.4.1",
+  "license": "MIT",
+  "url": "sindresorhus/ora"
+ },
+ {
+  "name": "parse-ms",
+  "version": "4.0.0",
+  "license": "MIT",
+  "url": "sindresorhus/parse-ms"
+ },
+ {
+  "name": "parse-ms",
+  "version": "3.0.0",
+  "license": "MIT",
+  "url": "sindresorhus/parse-ms"
+ },
+ {
+  "name": "path-key",
+  "version": "3.1.1",
+  "license": "MIT",
+  "url": "sindresorhus/path-key"
+ },
+ {
+  "name": "pretty-bytes",
+  "version": "6.1.1",
+  "license": "MIT",
+  "url": "sindresorhus/pretty-bytes"
+ },
+ {
+  "name": "pretty-ms",
+  "version": "9.3.1",
+  "license": "MIT",
+  "url": "sindresorhus/pretty-ms"
+ },
+ {
+  "name": "pretty-ms",
+  "version": "8.0.0",
+  "license": "MIT",
+  "url": "sindresorhus/pretty-ms"
+ },
+ {
+  "name": "progress",
+  "version": "2.0.3",
+  "license": "MIT",
+  "url": "https://github.com/visionmedia/node-progress"
+ },
+ {
+  "name": "proper-lockfile",
+  "version": "4.1.2",
+  "license": "MIT",
+  "url": "git@github.com:moxystudio/node-proper-lockfile"
+ },
+ {
+  "name": "qrcode-generator",
+  "version": "2.0.4",
+  "license": "MIT",
+  "url": "https://github.com/kazuhikoarase/qrcode-generator"
+ },
+ {
+  "name": "rc",
+  "version": "1.2.8",
+  "license": "(BSD-2-Clause OR MIT OR Apache-2.0)",
+  "url": "https://github.com/dominictarr/rc"
+ },
+ {
+  "name": "react",
+  "version": "19.3.1",
+  "license": "MIT",
+  "url": "https://github.com/react/react"
+ },
+ {
+  "name": "react-dom",
+  "version": "19.3.1",
+  "license": "MIT",
+  "url": "https://github.com/react/react"
+ },
+ {
+  "name": "require-directory",
+  "version": "2.1.1",
+  "license": "MIT",
+  "url": "https://github.com/troygoode/node-require-directory"
+ },
+ {
+  "name": "restore-cursor",
+  "version": "5.1.0",
+  "license": "MIT",
+  "url": "sindresorhus/restore-cursor"
+ },
+ {
+  "name": "retry",
+  "version": "0.13.1",
+  "license": "MIT",
+  "url": "https://github.com/tim-kos/node-retry"
+ },
+ {
+  "name": "retry",
+  "version": "0.12.0",
+  "license": "MIT",
+  "url": "https://github.com/tim-kos/node-retry"
+ },
+ {
+  "name": "sax",
+  "version": "1.6.1",
+  "license": "BlueOak-1.0.0",
+  "url": "ssh://git@github.com/isaacs/sax-js"
+ },
+ {
+  "name": "scheduler",
+  "version": "0.28.0",
+  "license": "MIT",
+  "url": "https://github.com/react/react"
+ },
+ {
+  "name": "semver",
+  "version": "7.7.4",
+  "license": "ISC",
+  "url": "https://github.com/npm/node-semver"
+ },
+ {
+  "name": "semver",
+  "version": "7.8.6",
+  "license": "ISC",
+  "url": "https://github.com/npm/node-semver"
+ },
+ {
+  "name": "shebang-command",
+  "version": "2.0.0",
+  "license": "MIT",
+  "url": "kevva/shebang-command"
+ },
+ {
+  "name": "shebang-regex",
+  "version": "3.0.0",
+  "license": "MIT",
+  "url": "sindresorhus/shebang-regex"
+ },
+ {
+  "name": "signal-exit",
+  "version": "3.0.7",
+  "license": "ISC",
+  "url": "https://github.com/tapjs/signal-exit"
+ },
+ {
+  "name": "signal-exit",
+  "version": "4.1.0",
+  "license": "ISC",
+  "url": "https://github.com/tapjs/signal-exit"
+ },
+ {
+  "name": "simple-git",
+  "version": "4.0.2",
+  "license": "MIT",
+  "url": "https://github.com/steveukx/git-js"
+ },
+ {
+  "name": "sleep-promise",
+  "version": "9.1.0",
+  "license": "MIT",
+  "url": "https://github.com/brummelte/sleep-promise"
+ },
+ {
+  "name": "slice-ansi",
+  "version": "8.0.0",
+  "license": "MIT",
+  "url": "chalk/slice-ansi"
+ },
+ {
+  "name": "slice-ansi",
+  "version": "7.1.2",
+  "license": "MIT",
+  "url": "chalk/slice-ansi"
+ },
+ {
+  "name": "stdin-discarder",
+  "version": "0.3.2",
+  "license": "MIT",
+  "url": "sindresorhus/stdin-discarder"
+ },
+ {
+  "name": "stdout-update",
+  "version": "4.0.1",
+  "license": "MIT",
+  "url": "https://github.com/keindev/stdout-update"
+ },
+ {
+  "name": "steno",
+  "version": "4.0.2",
+  "license": "MIT",
+  "url": "https://github.com/typicode/steno"
+ },
+ {
+  "name": "string-width",
+  "version": "8.3.0",
+  "license": "MIT",
+  "url": "sindresorhus/string-width"
+ },
+ {
+  "name": "string-width",
+  "version": "7.2.0",
+  "license": "MIT",
+  "url": "sindresorhus/string-width"
+ },
+ {
+  "name": "string-width",
+  "version": "4.2.3",
+  "license": "MIT",
+  "url": "sindresorhus/string-width"
+ },
+ {
+  "name": "strip-ansi",
+  "version": "7.2.0",
+  "license": "MIT",
+  "url": "chalk/strip-ansi"
+ },
+ {
+  "name": "strip-ansi",
+  "version": "6.0.1",
+  "license": "MIT",
+  "url": "chalk/strip-ansi"
+ },
+ {
+  "name": "strip-json-comments",
+  "version": "2.0.1",
+  "license": "MIT",
+  "url": "sindresorhus/strip-json-comments"
+ },
+ {
+  "name": "sumchecker",
+  "version": "3.0.1",
+  "license": "Apache-2.0",
+  "url": "https://github.com/malept/sumchecker"
+ },
+ {
+  "name": "tar",
+  "version": "7.5.22",
+  "license": "BlueOak-1.0.0",
+  "url": "https://github.com/isaacs/node-tar"
+ },
+ {
+  "name": "tiny-typed-emitter",
+  "version": "2.1.0",
+  "license": "MIT",
+  "url": "https://github.com/binier/tiny-typed-emitter"
+ },
+ {
+  "name": "tldts",
+  "version": "7.4.19",
+  "license": "MIT",
+  "url": "ssh://git@github.com/remusao/tldts"
+ },
+ {
+  "name": "tldts-core",
+  "version": "7.4.20",
+  "license": "MIT",
+  "url": "ssh://git@github.com/remusao/tldts"
+ },
+ {
+  "name": "tldts-experimental",
+  "version": "7.4.19",
+  "license": "MIT",
+  "url": "ssh://git@github.com/remusao/tldts"
+ },
+ {
+  "name": "tslib",
+  "version": "2.8.1",
+  "license": "0BSD",
+  "url": "https://github.com/Microsoft/tslib"
+ },
+ {
+  "name": "typescript",
+  "version": "7.0.2",
+  "license": "Apache-2.0",
+  "url": "https://github.com/microsoft/TypeScript"
+ },
+ {
+  "name": "undici",
+  "version": "7.30.1",
+  "license": "MIT",
+  "url": "https://github.com/nodejs/undici"
+ },
+ {
+  "name": "undici-types",
+  "version": "7.24.6",
+  "license": "MIT",
+  "url": "https://github.com/nodejs/undici"
+ },
+ {
+  "name": "universalify",
+  "version": "2.0.1",
+  "license": "MIT",
+  "url": "https://github.com/RyanZim/universalify"
+ },
+ {
+  "name": "url-join",
+  "version": "4.0.1",
+  "license": "MIT",
+  "url": "https://github.com/jfromaniello/url-join"
+ },
+ {
+  "name": "validate-npm-package-name",
+  "version": "7.0.2",
+  "license": "ISC",
+  "url": "https://github.com/npm/validate-npm-package-name"
+ },
+ {
+  "name": "which",
+  "version": "6.0.1",
+  "license": "ISC",
+  "url": "https://github.com/npm/node-which"
+ },
+ {
+  "name": "which",
+  "version": "2.0.2",
+  "license": "ISC",
+  "url": "https://github.com/isaacs/node-which"
+ },
+ {
+  "name": "wrap-ansi",
+  "version": "7.0.0",
+  "license": "MIT",
+  "url": "chalk/wrap-ansi"
+ },
+ {
+  "name": "y18n",
+  "version": "5.0.8",
+  "license": "ISC",
+  "url": "yargs/y18n"
+ },
+ {
+  "name": "yallist",
+  "version": "5.0.0",
+  "license": "BlueOak-1.0.0",
+  "url": "https://github.com/isaacs/yallist"
+ },
+ {
+  "name": "yargs",
+  "version": "17.7.3",
+  "license": "MIT",
+  "url": "https://github.com/yargs/yargs"
+ },
+ {
+  "name": "yargs-parser",
+  "version": "21.1.1",
+  "license": "ISC",
+  "url": "https://github.com/yargs/yargs-parser"
+ },
+ {
+  "name": "yoctocolors",
+  "version": "2.2.0",
+  "license": "MIT",
+  "url": "sindresorhus/yoctocolors"
+ },
+ {
+  "name": "zustand",
+  "version": "5.0.16",
+  "license": "MIT",
+  "url": "https://github.com/pmndrs/zustand"
+ }
+]
