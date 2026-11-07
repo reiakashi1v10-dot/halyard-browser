@@ -19,6 +19,7 @@ import type {
   WinScanResult,
   UpdateState,
   WinSecurityReport,
+  SearchPage,
   Space,
   WindowState
 } from './types'
@@ -109,6 +110,8 @@ export interface InternalApi {
   'internal:bookmark-rename': (id: string, title: string) => void
   'internal:top-sites': () => HistoryEntry[]
   'internal:resolve': (input: string) => string
+  /** Halyard search results. `next` is the token from the previous page. */
+  'internal:search': (query: string, next: string | null) => SearchPage
   'internal:stats': () => { blocked: number; sleepingTabs: number; openTabs: number; threatHosts: number; threatsBlocked: number }
   'internal:guard-proceed': (url: string, remember: boolean) => void
   /** HTTPS-only: open this site without HTTPS until the browser closes. */
@@ -156,11 +159,13 @@ export interface LabApi {
   'lab:copy-image': (dataUrl: string) => void
   'lab:save-image': (dataUrl: string, name: string) => boolean
   'lab:settings': () => Settings
+  /** Save a photo re-encoded without metadata (JPEG or PNG data URL). */
+  'lab:save-photo': (dataUrl: string, name: string) => boolean
 }
 
 export const LAB_CHANNELS = [
   'lab:analyze', 'lab:active', 'lab:audit', 'lab:breach', 'lab:hash-file', 'lab:dns', 'lab:open', 'lab:copy-image',
-  'lab:save-image', 'lab:settings'
+  'lab:save-image', 'lab:settings', 'lab:save-photo'
 ] as const satisfies readonly (keyof LabApi)[]
 
 export const UI_CHANNELS = [
@@ -179,7 +184,7 @@ export const UI_CHANNELS = [
 export const INTERNAL_CHANNELS = [
   'internal:settings', 'internal:set-settings', 'internal:history', 'internal:history-delete',
   'internal:bookmarks', 'internal:bookmark-remove', 'internal:bookmark-rename', 'internal:top-sites',
-  'internal:resolve', 'internal:stats', 'internal:clear-data', 'internal:permissions',
+  'internal:resolve', 'internal:search', 'internal:stats', 'internal:clear-data', 'internal:permissions',
   'internal:permission-remove', 'internal:downloads', 'internal:open-download', 'internal:show-download',
   'internal:version', 'internal:theme', 'internal:guard-proceed', 'internal:account', 'internal:account-open',
   'internal:sign-out', 'internal:ai', 'internal:ai-remove', 'internal:ransomware', 'internal:open-ransomware',

@@ -155,7 +155,22 @@ export function registerLabIpc(deps: LabDeps): void {
       await writeFile(res.filePath, img.toPNG())
       return true
     },
-    'lab:settings': () => svc.profile.settings
+    'lab:settings': () => svc.profile.settings,
+    'lab:save-photo': async (dataUrl, name) => {
+      const raw = str(dataUrl, 80 * 1024 * 1024)
+      const jpeg = raw.startsWith('data:image/jpeg;base64,')
+      if (!jpeg && !raw.startsWith('data:image/png;base64,')) throw new Error('Argumento inválido')
+      const img = nativeImage.createFromDataURL(raw)
+      if (img.isEmpty()) throw new Error('Argumento inválido')
+      const ext = jpeg ? 'jpg' : 'png'
+      const safe = str(name, 120).replace(/[<>:"/\\|?*\u0000-\u001f]/g, '_').trim() || 'photo'
+      const opts = { defaultPath: join(app.getPath('downloads'), `${safe}.${ext}`), filters: [{ name: ext.toUpperCase(), extensions: [ext] }] }
+      const res = win ? await dialog.showSaveDialog(win, opts) : await dialog.showSaveDialog(opts)
+      if (res.canceled || !res.filePath) return false
+      // re-encoded from pixels: no EXIF, GPS or other metadata survives
+      await writeFile(res.filePath, jpeg ? img.toJPEG(92) : img.toPNG())
+      return true
+    }
   }
 
   for (const channel of LAB_CHANNELS) {

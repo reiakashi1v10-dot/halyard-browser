@@ -50,6 +50,15 @@ export class Profile extends EventEmitter<ProfileEvents> {
   private visitedHosts: Set<string> | null = null
   private closedTabs: SavedTab[] = []
 
+  constructor() {
+    super()
+    // DuckDuckGo was the default before Halyard had its own results page: move those users over once
+    const s = this.settingsStore.get()
+    if (s.searchVersion < 1) {
+      this.settingsStore.update((cur) => ({ ...cur, searchEngine: cur.searchEngine === 'duckduckgo' ? 'halyard' : cur.searchEngine, searchVersion: 1 }))
+    }
+  }
+
   // ---- settings
   get settings(): Settings {
     return this.settingsStore.get()
@@ -58,7 +67,7 @@ export class Profile extends EventEmitter<ProfileEvents> {
   updateSettings(patch: Partial<Settings>): Settings {
     const clean: Partial<Settings> = {}
     for (const [key, value] of Object.entries(patch) as [keyof Settings, unknown][]) {
-      if (!(key in DEFAULT_SETTINGS)) continue
+      if (!(key in DEFAULT_SETTINGS) || key === 'searchVersion') continue
       if (typeof value !== typeof DEFAULT_SETTINGS[key] && !(Array.isArray(value) && Array.isArray(DEFAULT_SETTINGS[key]))) continue
       ;(clean as Record<string, unknown>)[key] = value
     }

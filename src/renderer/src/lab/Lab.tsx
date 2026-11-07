@@ -1,6 +1,15 @@
 import { useEffect, useMemo, useRef, useState, type DragEvent, type ReactNode } from 'react'
 import {
+  Barcode,
   Binary,
+  Eraser,
+  FileWarning,
+  IdCard,
+  LockKeyhole,
+  Mail,
+  MapPinOff,
+  MessageSquareWarning,
+  TextSearch,
   Check,
   Copy,
   Dices,
@@ -29,25 +38,68 @@ import { lab } from '@/lib/api'
 import { BRAND, locale, setLang, t, type I18nKey } from '@/lib/i18n'
 import { decodeQr, imageFrom, qrDataUrl, readFile, wifiPayload } from '@/lib/qr'
 import { LEVEL_ICON, linkOf, PayloadDetails, payloadNotes, reasonLevel, TYPE_ICON, worst, type Level } from '@/components/QrCheck'
+import { Busy, cls, CopyBtn, Err, errorText, Mono } from './ui'
+import { BoletoTool, CleanTool, DocTool, FileTool, HiddenTool, MailTool, PhotoTool, ScamTool, TokenTool, VaultTool } from './MoreTools'
 import { convert, decodeJwt, digest, generatePassword, guessMode, strengthOf, type DecodeMode, type GenOptions, type Jwt } from './tools'
 
-type ToolId = 'link' | 'audit' | 'password' | 'hash' | 'decode' | 'dns' | 'qrgen'
+type ToolId =
+  | 'link'
+  | 'audit'
+  | 'password'
+  | 'hash'
+  | 'decode'
+  | 'dns'
+  | 'qrgen'
+  | 'scam'
+  | 'boleto'
+  | 'doc'
+  | 'photo'
+  | 'hidden'
+  | 'mail'
+  | 'vault'
+  | 'token'
+  | 'clean'
+  | 'file'
 
-const TOOLS: { id: ToolId; icon: ReactNode }[] = [
-  { id: 'link', icon: <ScanSearch size={17} /> },
-  { id: 'audit', icon: <ShieldCheck size={17} /> },
-  { id: 'password', icon: <KeyRound size={17} /> },
-  { id: 'hash', icon: <FileSearch size={17} /> },
-  { id: 'decode', icon: <Binary size={17} /> },
-  { id: 'dns', icon: <Server size={17} /> },
-  { id: 'qrgen', icon: <QrCode size={17} /> }
+const GROUPS: { id: string; tools: { id: ToolId; icon: ReactNode }[] }[] = [
+  {
+    id: 'web',
+    tools: [
+      { id: 'link', icon: <ScanSearch size={17} /> },
+      { id: 'audit', icon: <ShieldCheck size={17} /> },
+      { id: 'clean', icon: <Eraser size={17} /> },
+      { id: 'dns', icon: <Server size={17} /> }
+    ]
+  },
+  {
+    id: 'scams',
+    tools: [
+      { id: 'scam', icon: <MessageSquareWarning size={17} /> },
+      { id: 'mail', icon: <Mail size={17} /> },
+      { id: 'boleto', icon: <Barcode size={17} /> },
+      { id: 'doc', icon: <IdCard size={17} /> }
+    ]
+  },
+  {
+    id: 'files',
+    tools: [
+      { id: 'file', icon: <FileWarning size={17} /> },
+      { id: 'photo', icon: <MapPinOff size={17} /> },
+      { id: 'hash', icon: <FileSearch size={17} /> },
+      { id: 'hidden', icon: <TextSearch size={17} /> }
+    ]
+  },
+  {
+    id: 'secrets',
+    tools: [
+      { id: 'password', icon: <KeyRound size={17} /> },
+      { id: 'vault', icon: <LockKeyhole size={17} /> },
+      { id: 'token', icon: <Dices size={17} /> },
+      { id: 'decode', icon: <Binary size={17} /> },
+      { id: 'qrgen', icon: <QrCode size={17} /> }
+    ]
+  }
 ]
-
-const cls = (...c: (string | false | null | undefined)[]) => c.filter(Boolean).join(' ')
-
-function errorText(e: unknown): string {
-  return e instanceof Error ? e.message : String(e)
-}
 
 export function Lab() {
   const [settings, setSettings] = useState<Settings | null>(null)
@@ -79,11 +131,16 @@ export function Lab() {
           </span>
         </div>
         <nav className="lab-nav" aria-label={t('lab.tools')}>
-          {TOOLS.map((x) => (
-            <button key={x.id} type="button" className={cls('lab-nav-item', tool === x.id && 'is-on')} onClick={() => setTool(x.id)}>
-              {x.icon}
-              <span>{t(`lab.tool.${x.id}` as I18nKey)}</span>
-            </button>
+          {GROUPS.map((g) => (
+            <div key={g.id} className="lab-nav-group">
+              <span className="lab-nav-label">{t(`lab.group.${g.id}` as I18nKey)}</span>
+              {g.tools.map((x) => (
+                <button key={x.id} type="button" className={cls('lab-nav-item', tool === x.id && 'is-on')} onClick={() => setTool(x.id)}>
+                  {x.icon}
+                  <span>{t(`lab.tool.${x.id}` as I18nKey)}</span>
+                </button>
+              ))}
+            </div>
           ))}
         </nav>
         <p className="lab-ethics">
@@ -105,45 +162,19 @@ export function Lab() {
           {tool === 'decode' && <DecodeTool />}
           {tool === 'dns' && <DnsTool secureDns={settings?.secureDns ?? 'cloudflare'} />}
           {tool === 'qrgen' && <QrGenTool />}
+          {tool === 'scam' && <ScamTool />}
+          {tool === 'boleto' && <BoletoTool />}
+          {tool === 'doc' && <DocTool />}
+          {tool === 'photo' && <PhotoTool />}
+          {tool === 'hidden' && <HiddenTool />}
+          {tool === 'mail' && <MailTool />}
+          {tool === 'vault' && <VaultTool />}
+          {tool === 'token' && <TokenTool />}
+          {tool === 'clean' && <CleanTool />}
+          {tool === 'file' && <FileTool />}
         </section>
       </main>
     </div>
-  )
-}
-
-// ------------------------------------------------------------------ bits
-
-function CopyBtn({ text, label }: { text: string; label?: string }) {
-  const [done, setDone] = useState(false)
-  useEffect(() => setDone(false), [text])
-  return (
-    <button
-      type="button"
-      className={cls('lab-btn', !label && 'is-icon')}
-      aria-label={label ?? t('lab.copy')}
-      title={label ?? t('lab.copy')}
-      disabled={!text}
-      onClick={() => void navigator.clipboard.writeText(text).then(() => setDone(true))}
-    >
-      {done ? <Check size={14} /> : <Copy size={14} />}
-      {label && <span>{label}</span>}
-    </button>
-  )
-}
-
-function Mono({ children }: { children: ReactNode }) {
-  return <code className="lab-mono">{children}</code>
-}
-
-function Err({ text }: { text: string | null }) {
-  return text ? <p className="lab-error">{text}</p> : null
-}
-
-function Busy({ label }: { label: string }) {
-  return (
-    <p className="lab-busy">
-      <Loader2 size={16} className="spin" /> {label}
-    </p>
   )
 }
 

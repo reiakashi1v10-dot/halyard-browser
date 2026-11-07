@@ -24,7 +24,7 @@ import {
 import type { TabInfo, WindowState } from '@shared/types'
 import { ui } from '@/lib/api'
 import { activeTab, useStore } from '@/lib/store'
-import { cls, IconButton, prettyUrl } from './bits'
+import { cls, IconButton, internalPage, prettyUrl, searchQueryOf } from './bits'
 import { t } from '@/lib/i18n'
 
 export function Toolbar({ state }: { state: WindowState }) {
@@ -157,7 +157,8 @@ function AddressPill({ tab }: { tab: TabInfo | null }) {
     useStore.getState().setOverlay({
       kind: 'palette',
       mode: 'current',
-      query: tab && !tab.url.startsWith('halyard://newtab') ? tab.url : ''
+      // on a Halyard search page, edit the words searched, not the internal address
+      query: !tab || tab.url.startsWith('halyard://newtab') ? '' : internalPage(tab.url) === 'search' && tab.url.startsWith('halyard://') ? searchQueryOf(tab.url) : tab.url
     })
 
   if (showToast && toast) {

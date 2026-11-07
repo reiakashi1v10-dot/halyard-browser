@@ -1,7 +1,7 @@
 {
   "name": "halyard-browser",
   "productName": "Halyard Browser",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "description": "Halyard — um navegador rápido, privado e bonito.",
   "main": "./out/main/index.js",
   "author": "Halyard",

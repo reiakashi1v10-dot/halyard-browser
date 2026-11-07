@@ -1,7 +1,7 @@
 import { upgradeToHttps } from './privacy'
-import { INTERNAL_SCHEME, SEARCH_ENGINES, type SearchEngineId, type SecurityState } from '@shared/types'
+import { INTERNAL_SCHEME, SEARCH_ENGINE_HALYARD, SEARCH_ENGINES, type SearchEngineId, type SecurityState } from '@shared/types'
 
-const INTERNAL_PAGES = new Set(['newtab', 'settings', 'history', 'bookmarks', 'downloads', 'error', 'about', 'legal'])
+const INTERNAL_PAGES = new Set(['newtab', 'settings', 'history', 'bookmarks', 'downloads', 'error', 'about', 'legal', 'search'])
 
 /** Turn whatever the user typed into a URL: a link, a host, an internal page or a search. */
 export function resolveInput(raw: string, engine: SearchEngineId, httpsOnly = false): string {
@@ -9,7 +9,17 @@ export function resolveInput(raw: string, engine: SearchEngineId, httpsOnly = fa
   if (!input) return 'halyard://newtab/'
 
   if (/^halyard:\/\//i.test(input)) {
-    const page = input.slice(7).replace(/\/.*$/, '').toLowerCase()
+    const page = input.slice(10).replace(/[/?#].*$/, '').toLowerCase()
+    if (page === 'search') {
+      const q = /[?&]q=([^&#]*)/.exec(input)?.[1]
+      let text = ''
+      try {
+        text = q ? decodeURIComponent(q.replace(/\+/g, ' ')) : ''
+      } catch {
+        /* bad escape: empty search */
+      }
+      return SEARCH_ENGINE_HALYARD.replace('%s', encodeURIComponent(text))
+    }
     return INTERNAL_PAGES.has(page) ? `halyard://${page}/` : 'halyard://newtab/'
   }
   if (/^(about|chrome):/i.test(input)) {

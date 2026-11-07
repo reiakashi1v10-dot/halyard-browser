@@ -25,6 +25,7 @@ import type { Updater } from './updater'
 import type { Guard } from './guard'
 import type { AiEngine } from './ai'
 import { Agent } from './agent'
+import { agentSearchUrl } from './search'
 import { copyPng } from './clip'
 import { hostOf, isInternalUrl, originOf, resolveInput } from './url'
 import { COMMANDS, KEYMAP, commandLabel, normalizeKey } from '@shared/commands'
@@ -146,7 +147,10 @@ export class BrowserController implements TabHost {
         tabById: (id) => this.tabs.get(id),
         activeTab: () => this.activeTab(),
         isShown: (tab) => this.isVisible(tab) && !this.viewsHidden,
-        searchUrl: (q) => SEARCH_ENGINES[svc.profile.settings.searchEngine].search.replace('%s', encodeURIComponent(q)),
+        searchUrl: (q) =>
+          svc.profile.settings.searchEngine === 'halyard'
+            ? agentSearchUrl(q)
+            : SEARCH_ENGINES[svc.profile.settings.searchEngine].search.replace('%s', encodeURIComponent(q)),
         publish: (state) => this.send('agent', state),
         openPanel: () => this.send('ui-action', { action: 'agent', open: true })
       },

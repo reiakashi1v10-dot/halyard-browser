@@ -13,6 +13,7 @@ import { openWindowsSecurity, quickScan, windowsSecurity } from './winsec'
 import { allowHttp } from './privacy'
 import { analyzeLink } from './linkcheck'
 import { copyPng } from './clip'
+import { search } from './search'
 
 type Handler<F> = F extends (...args: infer A) => infer R ? (ctl: BrowserController, ...args: A) => R | Promise<Awaited<R>> : never
 
@@ -195,6 +196,8 @@ export function registerIpc(svc: Services): void {
     'internal:bookmark-rename': (_c, id, title) => svc.profile.renameBookmark(str(id), str(title, 300)),
     'internal:top-sites': (ctl) => (ctl.isPrivate ? [] : svc.profile.topSites(8)),
     'internal:resolve': (_c, input) => resolveInput(str(input, 2000), svc.profile.settings.searchEngine, svc.profile.settings.httpsOnly),
+    'internal:search': (_c, query, next) =>
+      search(str(query, 500), next === null ? null : str(next, 2000), svc.profile.settings.language, electronSession.defaultSession.getUserAgent()),
     'internal:stats': () => {
       const tabs = [...BrowserController.all.values()].flatMap((c) => c.allTabs())
       const g = svc.guard.stats

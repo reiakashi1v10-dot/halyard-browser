@@ -88,10 +88,38 @@ export interface WindowState {
   totalBlocked: number
 }
 
-export type SearchEngineId = 'duckduckgo' | 'google' | 'brave' | 'bing' | 'startpage' | 'ecosia'
+export type SearchEngineId = 'halyard' | 'duckduckgo' | 'google' | 'brave' | 'bing' | 'startpage' | 'ecosia'
+
+/** One web result on the Halyard search page. */
+export interface SearchResult {
+  title: string
+  url: string
+  snippet: string
+  /** Small site icon, already an https URL. */
+  icon: string | null
+}
+
+/** The short summary box (usually from Wikipedia) shown next to the results. */
+export interface SearchAnswer {
+  heading: string
+  text: string
+  url: string
+  source: string
+  image: string | null
+}
+
+export interface SearchPage {
+  query: string
+  results: SearchResult[]
+  answer: SearchAnswer | null
+  /** Opaque token for the next page, or null on the last one. */
+  next: string | null
+}
 
 export interface Settings {
   searchEngine: SearchEngineId
+  /** 1 once DuckDuckGo users were moved to Halyard search. */
+  searchVersion: number
   suggestions: boolean
   theme: 'system' | 'dark' | 'light'
   adblock: boolean
@@ -488,7 +516,14 @@ export interface UiEvents {
 export const INTERNAL_SCHEME = 'halyard'
 export const NEW_TAB_URL = 'halyard://newtab/'
 
+export const SEARCH_ENGINE_HALYARD = 'halyard://search/?q=%s'
+
 export const SEARCH_ENGINES: Record<SearchEngineId, { name: string; search: string; suggest: string | null }> = {
+  halyard: {
+    name: 'Halyard',
+    search: SEARCH_ENGINE_HALYARD,
+    suggest: 'https://duckduckgo.com/ac/?q=%s&type=list'
+  },
   duckduckgo: {
     name: 'DuckDuckGo',
     search: 'https://duckduckgo.com/?q=%s',
@@ -522,7 +557,8 @@ export const SEARCH_ENGINES: Record<SearchEngineId, { name: string; search: stri
 }
 
 export const DEFAULT_SETTINGS: Settings = {
-  searchEngine: 'duckduckgo',
+  searchEngine: 'halyard',
+  searchVersion: 0,
   suggestions: true,
   theme: 'system',
   adblock: true,

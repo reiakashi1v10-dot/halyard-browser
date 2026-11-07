@@ -1,5 +1,5 @@
 import { useState, type ButtonHTMLAttributes, type ReactNode } from 'react'
-import { BookMarked, Download, History, Settings2, Sparkles, TriangleAlert } from 'lucide-react'
+import { BookMarked, Download, History, Search, Settings2, Sparkles, TriangleAlert } from 'lucide-react'
 import type { TabInfo } from '@shared/types'
 import { locale, t, type I18nKey } from '@/lib/i18n'
 
@@ -27,7 +27,8 @@ const INTERNAL_ICONS: Record<string, ReactNode> = {
   history: <History size={15} strokeWidth={1.8} />,
   bookmarks: <BookMarked size={15} strokeWidth={1.8} />,
   downloads: <Download size={15} strokeWidth={1.8} />,
-  error: <TriangleAlert size={15} strokeWidth={1.8} />
+  error: <TriangleAlert size={15} strokeWidth={1.8} />,
+  search: <Search size={15} strokeWidth={1.8} />
 }
 
 function hostLetter(url: string): { letter: string; hue: number } {
@@ -46,7 +47,7 @@ export function Favicon({ tab, size = 16 }: { tab: Pick<TabInfo, 'url' | 'favico
   const [failed, setFailed] = useState<string | null>(null)
   if (tab.loading) return <span className="spinner" style={{ width: size, height: size }} aria-hidden />
   if (tab.url.startsWith('halyard://')) {
-    const page = tab.url.slice(7).split('/')[0]
+    const page = internalPage(tab.url)
     return (
       <span className="favicon favicon-internal" style={{ width: size, height: size }} aria-hidden>
         {INTERNAL_ICONS[page] ?? INTERNAL_ICONS.newtab}
@@ -74,6 +75,20 @@ export function Favicon({ tab, size = 16 }: { tab: Pick<TabInfo, 'url' | 'favico
   )
 }
 
+/** "settings" from halyard://settings/, "search" from halyard://search/?q=... */
+export function internalPage(url: string): string {
+  return url.slice('halyard://'.length).split(/[/?#]/)[0].toLowerCase()
+}
+
+/** The text searched on a halyard://search page. */
+export function searchQueryOf(url: string): string {
+  try {
+    return new URL(url).searchParams.get('q') ?? ''
+  } catch {
+    return ''
+  }
+}
+
 export function formatBytes(bytes: number): string {
   if (!Number.isFinite(bytes) || bytes <= 0) return '0 B'
   const units = ['B', 'KB', 'MB', 'GB', 'TB']
@@ -84,7 +99,8 @@ export function formatBytes(bytes: number): string {
 
 export function prettyUrl(url: string): { host: string; rest: string } {
   if (url.startsWith('halyard://')) {
-    const page = url.slice(7).split('/')[0]
+    const page = internalPage(url)
+    if (page === 'search') return { host: searchQueryOf(url) || t('page.search'), rest: '' }
     const known = ['newtab', 'settings', 'history', 'bookmarks', 'downloads', 'about', 'error', 'blocked']
     return { host: known.includes(page) ? t(`page.${page}` as I18nKey) : 'Halyard', rest: '' }
   }

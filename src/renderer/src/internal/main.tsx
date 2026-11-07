@@ -14,6 +14,7 @@ import { DownloadsPage } from './DownloadsPage'
 import { ErrorPage } from './ErrorPage'
 import { BlockedPage } from './BlockedPage'
 import { LegalPage } from './LegalPage'
+import { SearchPage } from './SearchPage'
 import { setLang, t, type I18nKey } from '@/lib/i18n'
 
 const PAGES = ['newtab', 'settings', 'history', 'bookmarks', 'downloads', 'error', 'blocked', 'about', 'legal']
@@ -25,6 +26,7 @@ function Root() {
   setLang(settings?.language)
 
   useEffect(() => {
+    if (page === 'search') return // the search page titles itself with the query
     document.title = PAGES.includes(page) ? t(`page.${page}` as I18nKey) : 'Halyard'
     document.documentElement.lang = settings?.language ?? 'en'
   }, [page, settings?.language])
@@ -65,6 +67,8 @@ function Root() {
       return <BlockedPage />
     case 'legal':
       return <LegalPage />
+    case 'search':
+      return <SearchPage />
     default:
       return <NewTab settings={settings} />
   }
